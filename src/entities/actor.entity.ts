@@ -1,5 +1,6 @@
 import { generateUuid7 } from "src/utils/uuid7"
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, ManyToMany } from "typeorm"
+import { Movie } from "./movie.entity"
 
 @Entity()
 export class Actor {
@@ -26,6 +27,7 @@ export class Actor {
 
     @Column({type:"bigint"})
     uuid: string
+    movies: any
     
     @BeforeInsert()
     generateId() {
@@ -43,5 +45,7 @@ export class Actor {
  
      @Column({type:"timestamptz"})
      updated_at: Date
-
+     
+     @ManyToMany(() => Movie, movie => movie.actors)
+     movie: Movie[];
 }

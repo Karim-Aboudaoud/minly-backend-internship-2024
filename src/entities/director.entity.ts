@@ -1,5 +1,6 @@
 import { generateUuid7 } from "src/utils/uuid7"
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, OneToMany } from "typeorm"
+import { Movie } from "./movie.entity"
 
 @Entity()
 export class Director {
@@ -43,5 +44,7 @@ export class Director {
  
      @Column({type:"timestamptz"})
      updated_at: Date
-
+     
+     @OneToMany(() => Movie, (movie) => movie.director_id)
+     movies: Movie[];
 }
